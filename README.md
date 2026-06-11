@@ -1,58 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Komponen
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+1. x-alert
+Notifikasi dengan 4 tipe: success, danger, warning, info.
+properti : type (default: info), title (opsional), dismissible (default: false)
 
-## About Laravel
+<x-alert type="success">Data berhasil disimpan!</x-alert>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<x-alert type="danger" title="Terjadi Kesalahan">
+    Password salah. Silakan coba lagi.
+</x-alert>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<x-alert type="warning" :dismissible="true">Sesi hampir berakhir.</x-alert>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. x-card
+Card fleksibel dengan slot title, body, dan footer.
+properti: shadow (default: sm), rounded (default: 3), border (default: true), hover (default: false)
 
-## Learning Laravel
+<x-card>
+    <p>Isi card biasa.</p>
+</x-card>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<x-card :hover="true" shadow="md">
+    <x-slot name="title">Profil Pengguna</x-slot>
+    <p>Nama: Budi Santoso</p>
+    <x-slot name="footer">Terakhir diperbarui: 5 Juni 2026</x-slot>
+</x-card>
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. x-badge
+Badge/label kecil untuk status atau kategori.
+properti : color (default: primary), pill (default: false), outline (default: false), size (default: md)
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+<x-badge color="success">Aktif</x-badge>
+<x-badge color="danger" :pill="true">Error</x-badge>
+<x-badge color="warning" :outline="true" size="sm">Pending</x-badge>
 
-## Agentic Development
+4. x-button
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Tombol serbaguna dengan berbagai variant dan fitur.
+Props: variant (default: primary), type (default: outline), size (default: md), href, icon, iconPos (default: left), block, loading, rounded, disabled`
 
-```bash
-composer require laravel/boost --dev
+<x-button variant="primary" type="solid">Simpan</x-button>
+<x-button variant="danger" type="outline" icon="bi-trash">Hapus</x-button>
+<x-button variant="success" type="solid" icon="bi-download" iconPos="right">Download</x-button>
+{{-- Sebagai link --}}
+<x-button href="/halaman" type="solid" variant="primary">Buka Halaman</x-button>
+{{-- Loading state --}}
+<x-button type="solid" variant="primary" :loading="true">Memproses...</x-button>
 
-php artisan boost:install
-```
+5. x-breadcrumb
+Navigasi breadcrumb. Item terakhir otomatis jadi halaman aktif.
+properti : items (array), separator (default: /), style (default: default — pilihan: pills, arrow)
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+<x-breadcrumb :items="[
+    ['label' => 'Beranda', 'url' => '/'],
+    ['label' => 'Blog',    'url' => '/blog'],
+    ['label' => 'Artikel Ini'],
+]" />
 
-## Contributing
+{{-- Dengan icon dan separator kustom --}}
+<x-breadcrumb separator="›" :items="[
+    ['label' => 'Beranda', 'url' => '/', 'icon' => 'bi-house-fill'],
+    ['label' => 'Profil'],
+]" />
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Struktur File saat ingin menggunakan blade component
 
-## Code of Conduct
+resources/views/components/
+├── alert.blade.php
+├── card.blade.php
+├── badge.blade.php
+├── button.blade.php
+└── breadcrumb.blade.php
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
